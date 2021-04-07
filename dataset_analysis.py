@@ -87,9 +87,32 @@ def graph_elements_count():
     print("Edges:", edges)
     print("Unique Weights:", len(values))
 
+def longest_path():
+    graph = create_graph()
+    distances = []
+    out = ""
+
+    for line in sys.stdin:
+        line = line[:-1].split()
+
+        if len(line) == 0:
+            continue
+
+        src = int(line[0])
+        target = int(line[1])
+
+        dij = graph.dijkstra(src, target)
+        if dij is not None:
+            dis = dij[1]
+            distances.append(dis)
+            out += f"Distance {src}->{target}: {dis}\n"
+
+    print(f"The longest path has length: {max(distances)}\n")
+    print(out)
+
 if __name__ == "__main__":
     # generate_test_cases()
     #time_analysis()
     #generate_all_cases()
     #graph_elements_count()
-    pass
+    longest_path()
