@@ -1,4 +1,4 @@
-from data_analysis import create_graph
+from graph_builder import create_graph
 
 def print_header():
     print("Analysis of Neural network of the nematode C. Elegans vertices distance")

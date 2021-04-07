@@ -1,4 +1,4 @@
-from data_analysis import create_graph
+from graph_builder import create_graph, get_dataset
 import time, random, sys
 
 def time_analysis():
@@ -60,7 +60,36 @@ def generate_all_cases():
 
     print(out)
 
+def graph_elements_count():
+    '''Print the number of nodes and edges aswell as the number of distint weights of edges on the graph'''
+    nodes = 0    # Number of nodes in the graph
+    edges = 0    # Number of edges in the graph
+    values = []  # List with all weight values in the graph
+
+    dataset = get_dataset()
+
+    # Start the count, it can be optimized but there is no need
+    for line in dataset:
+        line = line[:-1]
+        if line == "  node":
+            nodes += 1
+        elif line == "  edge":
+            edges += 1
+        elif "value" in line:
+            weight = line.split()[1]
+            if weight not in values:
+                values.append(weight)
+
+    dataset.close()
+
+    # Print the results
+    print("Nodes:", nodes)
+    print("Edges:", edges)
+    print("Unique Weights:", len(values))
+
 if __name__ == "__main__":
     # generate_test_cases()
-    time_analysis()
+    #time_analysis()
     #generate_all_cases()
+    #graph_elements_count()
+    pass
