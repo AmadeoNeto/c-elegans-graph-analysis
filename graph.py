@@ -39,20 +39,21 @@ class Digraph:
         '''The number of vertices in the graph'''
         return len(self.__adj)
 
-    def dijkstra(self,start,target):
+    def dijkstra(self,start,target, by_label=False):
         antecessors = [-1 for i in range(self.size)]
         distances = [(math.inf,i) for i in range(self.size)]
 
-        index_start = self.get_index_by_label(start)
-        index_target = self.get_index_by_label(target)
-        # print("i_start",index_start)
-        # print("i_target",index_target)
+        if by_label:
+            index_start = self.get_index_by_label(start)
+            index_target = self.get_index_by_label(target)
+        else:
+            index_start = start
+            index_target = target
 
         distances[index_start] = (0,distances[index_start][1])
 
         open_heap = Min_Heap()
         open_heap.insert(distances[index_start])
-        # print(open_heap)
 
         while open_heap.size != 0:
             dis_ver = open_heap.extract_min()
@@ -73,38 +74,25 @@ class Digraph:
 
         if antecessors[index_target] == -1:
             # print(antecessors)
-            print(f"There is no path from {start} to {target}")
             return
 
-        path_labels = [target]
-        path_indexes = [index_target]
+        path = [target]
         aux = index_target
 
         while aux != index_start:
             if aux == -1:
                 break
             aux = antecessors[aux]
-            path_indexes.append(aux)
-            path_labels.append(self.get_label(aux))
 
-        path_labels.reverse()
-        path_indexes.reverse()
+            if by_label:
+                path.append(self.get_label(aux))
+            else:
+                path.append(aux)
 
-        out = ""
-        out += f"Distance: {distances[index_target][0]}\n"
-        out += "Shortest path:\n"
-        out += "- By labels: "
+        path.reverse()
+        distance = distances[index_target][0]
 
-        for i in range(len(path_labels)-1):
-            out += f"{path_labels[i]}, "
-        out += f"{path_labels[-1]}\n"
-
-        out += "- By indexes: "
-
-        for i in range(len(path_indexes)-1):
-            out += f"{path_indexes[i]}, "
-        out += f"{path_indexes[-1]}"
-        print(out)
+        return (path, distance)
 
     def __str__(self):
         out = ""

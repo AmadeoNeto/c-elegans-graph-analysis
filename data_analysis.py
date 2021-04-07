@@ -11,7 +11,7 @@ def get_dataset():
     return dataset
 
 def graph_elements_count():
-    '''Print the number of nodes and edges on the graph aswell as the number of distint weights of the edges'''
+    '''Print the number of nodes and edges aswell as the number of distint weights of edges on the graph'''
     nodes = 0    # Number of nodes in the graph
     edges = 0    # Number of edges in the graph
     values = []  # List with all weight values in the graph
@@ -69,12 +69,9 @@ def create_graph():
 
 def test():
     g = create_graph()
-    # print(g)
-    # for i in range(5):
-    #     label = g.get_label(i)
-        # print("index",g.get_index_by_label(label),"label:",label)
-    # graph_elements_count()
-    g.dijkstra(1,51)
+    print(g)
+    # print(g.dijkstra(1,92,True))
+    # print(g.dijkstra(0,7))
 
 if __name__ == "__main__":
     test()
