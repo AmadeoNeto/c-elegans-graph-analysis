@@ -1,0 +1,19 @@
+Dataset Availabe at: http://www-personal.umich.edu/~mejn/netdata/celegansneural.zip
+Disponibilized by Mark Newman
+
+Description: 
+A directed, weighted network representing the neural network of C. Elegans. Data compiled by D. Watts and S. Strogatz and made available on at http://www-personal.umich.edu/~mejn/netdata/celegansneural.zip. Original experimental data taken from J. G. White, E. Southgate, J. N. Thompson, and S. Brenner, Phil. Trans. R. Soc. London 314, 1-340 (1986).
+
+Graph Info:
+Nodes: 297
+Edges: 2359
+Unique Weights: 31
+Directed
+
+Referrences:
+  J. G. White, E. Southgate, J. N. Thompson, and S. Brenner, "The structure
+  of the nervous system of the nematode C. Elegans", Phil. Trans. R. Soc.
+  London 314, 1-340 (1986).
+
+  D. J. Watts and S. H. Strogatz, "Collective dynamics of `small-world'
+  networks", Nature 393, 440-442 (1998).
