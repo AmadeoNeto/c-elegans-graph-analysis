@@ -1,7 +1,5 @@
 # Analysis of the Vertices Distance Of the Neural Network of C. Elegans
 
-
-
 Dataset Availabe at: http://www-personal.umich.edu/~mejn/netdata/celegansneural.zip  
 Disponibilized by Mark Newman
 

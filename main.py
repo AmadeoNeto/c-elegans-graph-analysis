@@ -1,5 +1,5 @@
-import streamlit as st
 from graph_builder import create_graph
+import streamlit as st
 
 def print_header():
     st.title("Analysis of Neural Network of the Nematode C. Elegans Vertices Distance")

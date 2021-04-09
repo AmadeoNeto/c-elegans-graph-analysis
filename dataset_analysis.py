@@ -110,8 +110,6 @@ def graph_elements_count():
             if weight not in values:
                 values.append(weight)
 
-    dataset.close()
-
     # Print the results
     print("Nodes:", nodes)
     print("Edges:", edges)

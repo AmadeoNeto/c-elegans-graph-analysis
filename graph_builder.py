@@ -1,11 +1,18 @@
 '''Module responsible for reading the database'''
 import os
+from urllib.request import urlopen
 from graph import Digraph
+
+DATA_URL = "https://raw.githubusercontent.com/AmadeoNeto/c-elegans-graph-analysis/main/celegansneural/celegansneural.gml"
 
 def get_file_path(dir_path:str):
     return "".join(list(os.getcwd())) + dir_path
 
 def get_dataset():
+    url = urlopen(DATA_URL)
+    return url
+
+def get_dataset_by_file():
     datapath = get_file_path("\\celegansneural\\celegansneural.gml")
     dataset = open(datapath)
     return dataset
@@ -35,11 +42,10 @@ def create_graph():
     graph = Digraph()
     dataset = get_dataset()
     for line in dataset:
+        line = line.decode("utf-8")
         if line == "  node\n":
             insert_vertex(graph,dataset)
         if line == "  edge\n":
             insert_edge(graph,dataset)
 
-
-    dataset.close()
     return graph
