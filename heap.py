@@ -1,68 +1,5 @@
 import math
 
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
-
-    def __str__(self):
-        return str(self.value)
-
-class List:
-    def __init__(self):
-        self.head = None
-        self.last = None
-        self.size = 0
-
-    def append(self, value):
-        node = Node(value)
-        if self.size == 0:
-            self.head = node
-            self.last = node
-        else:
-            self.last.next = node
-            self.last = node
-
-        self.size += 1
-
-    def get(self, index):
-        return self._get_node(index).value
-
-    def _get_node(self, index):
-        aux = self.head
-        i = 0
-
-        if index == self.size-1:
-            return self.last
-
-        while i < index:
-            i+=1
-            aux = aux.next
-
-        return aux
-
-    def to_array(self):
-        array = [0 for i in range(self.size)]
-        aux = self.head
-        for i in range(self.size):
-            array[i] = aux.value
-            aux = aux.next
-
-        return array
-
-    def __str__(self):
-        if self.size == 0:
-            return "None"
-        else:
-            aux = self.head
-            txt = str(aux)
-            aux = aux.next
-            while aux is not None:
-                txt = txt + " -> " + str(aux)
-                aux = aux.next
-            txt += " -> None"
-            return txt        
-
 def swap(array, pos1, pos2):
     array[pos1], array[pos2] = array[pos2], array[pos1]
 
@@ -79,15 +16,6 @@ class Min_Heap:
 
     def parent(self, i):
         return (i-1)//2
-
-    def peek(self):
-        if self.size == 0:
-            return None
-        else:
-            return self.array[0]
-
-    def is_leaf(self, i):
-        return i <= self.size//2
 
     def extract_min(self):
         if self.size != 0:

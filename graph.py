@@ -5,15 +5,13 @@ import math
 class Digraph:
     '''Stores a weighted directioned graph represented with a Adjacency List.
     Each list element is represented as a tuple (destiny, weight)'''
-    def __init__(self, size = 0):
-        self.__adj = []
-        self.__labels = dict()
-        self.__index = dict()
-
-        for i in range(size):
-            self.new_vertex(str(i))
+    def __init__(self):
+        self.__adj = []  # Adjacency list
+        self.__labels = dict() # Dict: index -> label
+        self.__index = dict() # Dict: label -> index
 
     def new_vertex(self, label):
+        '''Create a new vertex with a given label'''
         index = self.size
         self.__adj.append([])
 
@@ -29,9 +27,11 @@ class Digraph:
         return self.__adj[v]
 
     def get_label(self,index):
+        '''Returns the label corresponding to the index'''
         return self.__labels[index]
 
     def get_index_by_label(self, label):
+        '''Returns the index corresponding to the label'''
         return self.__index[label]
 
     @property
@@ -40,6 +40,17 @@ class Digraph:
         return len(self.__adj)
 
     def dijkstra(self,start,target, by_label=False):
+        '''Returns a tuple (shortest_path, distance) where the shortest path is a list.
+
+        Parameters
+        ----------
+        start : int
+            The vertex where the path will start
+        target : int
+            The vertex where the path should end
+        by_label : bool, optional
+            The search should be by the label? (default is False)
+        '''
         antecessors = [-1 for i in range(self.size)]
         distances = [(math.inf,i) for i in range(self.size)]
 
@@ -50,14 +61,14 @@ class Digraph:
             index_start = start
             index_target = target
 
-        distances[index_start] = (0,distances[index_start][1])
+        distances[index_start] = (0, distances[index_start][1])
 
-        open_heap = Min_Heap()
-        open_heap.insert(distances[index_start])
+        prior_queue = Min_Heap()
+        prior_queue.insert(distances[index_start])
 
-        while open_heap.size != 0:
-            dis_ver = open_heap.extract_min()
-            v1 = dis_ver[1]
+        while prior_queue.size != 0:
+            popped = prior_queue.extract_min()
+            v1 = popped[1]
             adjacents = self.get_adjacents(v1)
 
             for i in range(len(adjacents)):
@@ -70,11 +81,11 @@ class Digraph:
                     antecessors[v2] = v1
 
                     distances[v2] = (alt, v2)
-                    open_heap.insert(distances[v2])
+                    prior_queue.insert(distances[v2])
 
         if antecessors[index_target] == -1:
-            # print(antecessors)
-            return
+            # The target could not be reached
+            return None
 
         path = [target]
         aux = index_target
@@ -102,15 +113,3 @@ class Digraph:
             out += "\n"
 
         return out
-
-if __name__ == "__main__":
-    g = Digraph(7)
-    # g.edge_between(4,2,1)
-    # g.edge_between(5,1,3)
-    # g.edge_between(2,1,20)
-    # g.edge_between(0,6,9)
-    # g.edge_between(4,5,30)
-    # g.edge_between(4,0,1)
-    # g.edge_between(6,1,1)
-    # print(g)
-    # g.dijkstra(4,1)

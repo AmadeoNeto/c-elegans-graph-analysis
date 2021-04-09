@@ -2,6 +2,9 @@ from graph_builder import create_graph, get_dataset
 import time, random, sys
 
 def time_analysis():
+    ''' Receives test cases from the console and make analysis
+    of it execution time
+    '''
     graph = create_graph()
     times = []
     out = ""
@@ -39,7 +42,8 @@ def time_analysis():
     print("Cases tested:")
     print(out)
 
-def generate_test_cases():
+def generate_label_test_cases():
+    '''Generate random pairs of numbers to be used in dijkstra by label'''
     out = ""
     for i in range(1,303):
         picked = []
@@ -53,11 +57,37 @@ def generate_test_cases():
     print(out)
 
 def generate_all_cases():
+    '''Generate all possible test cases by index for dijkstra'''
     out = ""
     for i in range(297):
         for j in range(297):
             out += f"{i} {j}\n"
 
+    print(out)
+
+def farthest_path():
+    '''Receives test cases from console and print the path with the
+     biggest distance and, below, the distance of each path'''
+    graph = create_graph()
+    distances = []
+    out = ""
+
+    for line in sys.stdin:
+        line = line[:-1].split()
+
+        if len(line) == 0:
+            continue
+
+        src = int(line[0])
+        target = int(line[1])
+
+        dij = graph.dijkstra(src, target)
+        if dij is not None:
+            dis = dij[1]
+            distances.append(dis)
+            out += f"Distance {src}->{target}: {dis}\n"
+
+    print(f"The longest path has length: {max(distances)}\n")
     print(out)
 
 def graph_elements_count():
@@ -87,32 +117,9 @@ def graph_elements_count():
     print("Edges:", edges)
     print("Unique Weights:", len(values))
 
-def longest_path():
-    graph = create_graph()
-    distances = []
-    out = ""
-
-    for line in sys.stdin:
-        line = line[:-1].split()
-
-        if len(line) == 0:
-            continue
-
-        src = int(line[0])
-        target = int(line[1])
-
-        dij = graph.dijkstra(src, target)
-        if dij is not None:
-            dis = dij[1]
-            distances.append(dis)
-            out += f"Distance {src}->{target}: {dis}\n"
-
-    print(f"The longest path has length: {max(distances)}\n")
-    print(out)
-
 if __name__ == "__main__":
     # generate_test_cases()
     #time_analysis()
     #generate_all_cases()
     #graph_elements_count()
-    longest_path()
+    farthest_path()

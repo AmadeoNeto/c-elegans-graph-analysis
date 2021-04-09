@@ -43,10 +43,3 @@ def create_graph():
 
     dataset.close()
     return graph
-
-def test():
-    g = create_graph()
-    print(g)
-
-if __name__ == "__main__":
-    test()
